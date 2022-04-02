@@ -65,14 +65,14 @@ func SendHandler(w http.ResponseWriter, r *http.Request) {
 	msg := fmt.Sprintf("FROM %s\n\n%s\n", info[0], info[3])
 	var k int
 	dir := MsgDir(info[2])
-	filename := dir + strconv.Itoa(k)
+	filename := dir + strconv.Itoa(k) + ".dat"
 
 	for {
 		if _, err := os.ReadFile(filename); err != nil {
 			break
 		}
 		k++
-		filename = dir + strconv.Itoa(k)
+		filename = dir + strconv.Itoa(k) + ".dat"
 	}
 
 	os.Mkdir(dir, Perms)
@@ -104,7 +104,7 @@ func ReceiveHandler(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprintln(w, ErrorText("read error", err))
 			continue
 		}
-		str += string(data)
+		str += string(data) + "\n"
 	}
 
 	AlertSuccessful(w)
