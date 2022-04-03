@@ -76,7 +76,7 @@ func SendHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	os.Mkdir(dir, Perms)
-	if err := os.WriteFile(filename+".dat", []byte(msg), Perms); err != nil {
+	if err := os.WriteFile(filename, []byte(msg), Perms); err != nil {
 		fmt.Fprintln(w, ErrorText("write error", err))
 	} else {
 		AlertSuccessful(w)
